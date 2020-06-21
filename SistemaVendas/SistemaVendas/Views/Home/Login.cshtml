@@ -1,4 +1,5 @@
-﻿<style type="text/css">
+﻿@model LoginModel
+<style type="text/css">
     .login-form {
         width: 385px;
         margin: 30px auto;
@@ -67,18 +68,18 @@
 </style>
 
 <div class="login-form">
-    <form action="/examples/actions/confirmation.php" method="post">
+    <form asp-controller="Home" asp-action="Login" method="post">
         <h2 class="text-center">Sistema Vendas</h2>
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <input type="text" class="form-control" name="username" placeholder="Usuário" required="required">
+                <input type="text" class="form-control" asp-for="Email" placeholder="E-mail" required="required">
             </div>
         </div>
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <input type="password" class="form-control" name="password" placeholder="Senha" required="required">
+                <input type="password" class="form-control" asp-for="Senha" placeholder="Senha" required="required">
             </div>
         </div>
         <div class="form-group">
