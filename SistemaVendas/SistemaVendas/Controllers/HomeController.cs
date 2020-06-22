@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SistemaVendas.Models;
@@ -33,6 +34,9 @@ namespace SistemaVendas.Controllers
                 bool loginOk = login.ValidarLogin();
                 if (loginOk)
                 {
+                    HttpContext.Session.SetString("IdUsuarioLogado", login.Id);
+                    HttpContext.Session.SetString("NomeUsuarioLogado", login.Nome);
+
                     return RedirectToAction("Menu", "Home");
                 }
                 else
