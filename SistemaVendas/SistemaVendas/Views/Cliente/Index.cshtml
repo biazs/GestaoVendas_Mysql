@@ -14,6 +14,8 @@
             foreach (var item in (List<ClienteModel>)ViewBag.ListaClientes)
             {
                 <tr>
+                    <td><button type="button" class="btn btn-warning" onclick="Editar(@item.Id)">Editar</button></td>
+                    <td><button type="button" class="btn btn-danger" onclick="Excluir(@item.Id)">Excluir</button></td>
                     <td>@item.Id</td>
                     <td>@item.Nome</td>
                     <td>@item.CPF</td>
@@ -24,4 +26,18 @@
     </tbody>
 </table>
 <br />
-<button class="btn btn-block btn-primary" type="button">Cadastrar Cliente</button>
+<button class="btn btn-block btn-primary" type="button" onclick="Cadastrar()">Cadastrar Cliente</button>
+
+<script>
+    function Cadastrar() {
+        window.location.href = "../Cliente/Cadastro";
+    }
+
+    function Editar(id) {
+        window.location.href = "../Cliente/Cadastro/" + id;
+    }
+
+    function Excluir(id) {
+        window.location.href = "../Cliente/Excluir/" + id;
+    }
+</script>   
