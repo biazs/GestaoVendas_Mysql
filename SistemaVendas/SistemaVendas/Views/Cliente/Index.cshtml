@@ -1,0 +1,27 @@
+﻿<h3>Lista de Clientes</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>E-mail</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var item in (List<ClienteModel>)ViewBag.ListaClientes)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Nome</td>
+                    <td>@item.CPF</td>
+                    <td>@item.Email</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<br />
+<button class="btn btn-block btn-primary" type="button">Cadastrar Cliente</button>
