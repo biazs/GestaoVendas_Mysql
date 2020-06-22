@@ -70,17 +70,30 @@
 <div class="login-form">
     <form asp-controller="Home" asp-action="Login" method="post">
         <h2 class="text-center">Sistema Vendas</h2>
+        @{
+            try
+            {
+                var erro = TempData["ErrorLogin"] != null ? TempData["ErrorLogin"].ToString() : "";
+                <h5 class="text-danger">@erro</h5>
+            }
+            catch
+            {
+
+            }
+        }
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <input type="text" class="form-control" asp-for="Email" placeholder="E-mail" required="required">
+                <input type="text" class="form-control" asp-for="Email" placeholder="E-mail">
             </div>
+            <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <input type="password" class="form-control" asp-for="Senha" placeholder="Senha" required="required">
+                <input type="password" class="form-control" asp-for="Senha" placeholder="Senha">
             </div>
+            <span asp-validation-for="Senha" class="text-danger"></span>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary login-btn btn-block">Entrar</button>
