@@ -3,16 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SistemaVendas</title>
+    <title>Sistema Gestão de Vendas</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
+<body onload="CarregaUsuarioLogado()">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SistemaVendas</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Sistema Gestão de Vendas</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,13 +23,14 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Entrar no Sistema</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login" id="login">Entrar no Sistema</a>
                         </li>
                     </ul>
+
                 </div>
+                @using Microsoft.AspNetCore.Http;
+                @inject IHttpContextAccessor HttpContextAccessor;
+                <div id="NomeUsuarioLogado"></div>
             </div>
         </nav>
     </header>
@@ -41,12 +42,29 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - SistemaVendas - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - Sistema Gestão de Vendas - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacidade</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+    <script>
+        function CarregaUsuarioLogado()
+        {
+            var nome = '@HttpContextAccessor.HttpContext.Session.GetString("NomeUsuarioLogado")';
+
+            if (nome != '') { // Usuário logado
+                var divNome = document.getElementById("NomeUsuarioLogado");
+                divNome.innerHTML = "Olá " + nome + " " + "<a href='../Home/Login/0'>(Sair)</a>";
+                divNome.style = "";
+                var linkLogin = document.getElementById("login");
+                linkLogin.style = "display: none;";
+            }
+            else {
+                window.location.href = '../Home/Login';
+            }
+        }
+    </script>
 </body>
 </html>
