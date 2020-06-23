@@ -1,0 +1,43 @@
+﻿<h3>Lista de Produtos</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>E-mail</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var item in (List<ProdutoModel>)ViewBag.ListaProdutos)
+            {
+                <tr>
+                    <td><button type="button" class="btn btn-warning" onclick="Editar(@item.Id)">Editar</button></td>
+                    <td><button type="button" class="btn btn-danger" onclick="Excluir(@item.Id)">Excluir</button></td>
+                    <td>@item.Id</td>
+                    <td>@item.Nome</td>
+                    <td>@item.Descricao</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<br />
+<button class="btn btn-block btn-primary" type="button" onclick="Cadastrar()">Cadastrar Produto</button>
+
+<script>
+    function Cadastrar() {
+        window.location.href = "../Produto/Cadastro";
+    }
+
+    function Editar(id) {
+        window.location.href = "../Produto/Cadastro/" + id;
+    }
+
+    function Excluir(id) {
+        window.location.href = "../Produto/Excluir/" + id;
+    }
+</script>   

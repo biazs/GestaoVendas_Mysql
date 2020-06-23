@@ -59,3 +59,7 @@ D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVend
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Vendedor\Excluir.cshtml.g.cs
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Vendedor\ExcluirVendedor.cshtml.g.cs
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Vendedor\Index.cshtml.g.cs
+D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Produto\Cadastro.cshtml.g.cs
+D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Produto\Excluir.cshtml.g.cs
+D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Produto\ExcluirProduto.cshtml.g.cs
+D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Produto\Index.cshtml.g.cs
