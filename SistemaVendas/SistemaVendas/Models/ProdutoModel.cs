@@ -16,10 +16,12 @@ namespace SistemaVendas.Models
         public string Descricao { get; set; }
 
         [Required(ErrorMessage = "Informe o preço unitário do produto.")]
-        public decimal Preco_Unitario { get; set; }
+        [DataType(DataType.Currency, ErrorMessage = "Preço unitário inválido")]
+        public decimal? Preco_Unitario { get; set; }
 
         [Required(ErrorMessage = "Informe a quantidade em estoque do produto.")]
-        public decimal Quantidade_Estoque { get; set; }
+        [Range(1, 9999, ErrorMessage = "Valor deve ser entre 1 e 999999999")]
+        public decimal? Quantidade_Estoque { get; set; }
 
         [Required(ErrorMessage = "Informe a unidade de medida do produto.")]
         public string Unidade_Medida { get; set; }

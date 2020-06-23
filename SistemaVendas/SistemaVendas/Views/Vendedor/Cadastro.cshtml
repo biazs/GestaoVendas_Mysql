@@ -15,4 +15,11 @@
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-block btn-success">Registrar</button>
+    <button type="button" class="btn btn-block btn-primary" onclick="Voltar()">Listagem de Vendedores</button>
 </form>
+
+<script>
+    function Voltar() {
+        window.location.href = '../../Produto/Index';
+    }
+</script>
