@@ -66,3 +66,7 @@ D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVend
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.csproj.CoreCompileInputs.cache
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.MvcApplicationPartsAssemblyInfo.cache
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Venda\Index.cshtml.g.cs
+D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Relatorio\Comissao.cshtml.g.cs
+D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Relatorio\Grafico.cshtml.g.cs
+D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Relatorio\Index.cshtml.g.cs
+D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Relatorio\Vendas.cshtml.g.cs
