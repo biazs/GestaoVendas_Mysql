@@ -11,8 +11,46 @@
     </div>
     <div class="form-group">
         <label>Descrição</label>
-        <input asp-for="Descricao" type="text" class="form-control" value="@try { @ViewBag.Produto.Descricao } catch { }" />
+        @{
+            var vDescricao = "";
+            try
+            {
+                vDescricao = @ViewBag.Produto.Descricao;
+            }
+            catch
+            {
+
+            }
+        }
+        @Html.TextArea("Descricao", vDescricao, new { @class = "form-control" })
+
+        @*<input asp-for="Descricao" type="text" class="form-control" value="@try { @ViewBag.Produto.Descricao } catch { }" />*@
         <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Preço Unitário</label>
+        <input asp-for="Preco_Unitario" type="text" class="form-control" value="@try { @ViewBag.Produto.Preco_Unitario } catch { }" />
+        <span asp-validation-for="Preco_Unitario" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Quantidade Estoque</label>
+        <input asp-for="Quantidade_Estoque" type="text" class="form-control" value="@try { @ViewBag.Produto.Quantidade_Estoque } catch { }" />
+        <span asp-validation-for="Quantidade_Estoque" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Unidade de Medida</label>
+        <input asp-for="Unidade_Medida" type="text" class="form-control" value="@try { @ViewBag.Produto.Unidade_Medida } catch { }" />
+        <span asp-validation-for="Unidade_Medida" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Foto</label>
+        @try
+        {
+            <img src="@try { @ViewBag.Produto.Link_Foto } catch { }" width="150" height="150" />
+        }
+        catch { }
+        <input asp-for="Link_Foto" type="text" class="form-control" value="@try { @ViewBag.Produto.Link_Foto } catch { }" />
+        <span asp-validation-for="Link_Foto" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-block btn-success">Registrar</button>
 </form>

@@ -7,7 +7,11 @@
             <th></th>
             <th>Id</th>
             <th>Nome</th>
-            <th>E-mail</th>
+            <th>Descrição</th>
+            <th>Preço Unitario</th>
+            <th>Quantidade em Estoque</th>
+            <th>Unidade de Medida</th>
+            <th>Foto</th>
         </tr>
     </thead>
     <tbody>
@@ -20,6 +24,10 @@
                     <td>@item.Id</td>
                     <td>@item.Nome</td>
                     <td>@item.Descricao</td>
+                    <td>@item.Preco_Unitario</td>
+                    <td>@item.Quantidade_Estoque</td>
+                    <td>@item.Unidade_Medida</td>
+                    <td><img src="@item.Link_Foto" width="150" height="150" /></td>
                 </tr>
             }
         }
