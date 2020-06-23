@@ -9,10 +9,42 @@ namespace SistemaVendas.Models
     public class VendaModel
     {
         public string Id { get; set; }
+        public string Data { get; set; }
         public string Cliente_Id { get; set; }
         public string Vendedor_Id { get; set; }
         public double Total { get; set; }
         public string ListaProdutos { get; set; }
+
+        public List<VendaModel> ListagemVendas()
+        {
+            List<VendaModel> lista = new List<VendaModel>();
+            VendaModel item;
+            //TODO: Corrigir campo data
+            //string sql = "SELECT v1.id, v1.data, v1.total, v2.nome as vendedor, c.nome as cliente FROM " +
+            //             "venda v1 inner join vendedor v2 on v1.vendedor_id = v2.id inner join cliente c " +
+            //             "on v1.cliente_id = c.id ORDER BY data, total";
+
+            string sql = "SELECT v1.id,  v1.total, v2.nome as vendedor , c.nome as cliente " +
+                         "FROM sistema_venda.venda v1 inner join sistema_venda.vendedor v2 on v1.vendedor_id = v2.id " +
+                         "inner join sistema_venda.cliente c on v1.cliente_id = c.id ORDER BY total";
+            DAL objDAL = new DAL();
+            DataTable dt = objDAL.RetDataTable(sql);
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                item = new VendaModel
+                {
+                    Id = dt.Rows[i]["id"].ToString(),
+                    //Data = DateTime.Parse(dt.Rows[i]["data"].ToString()).ToString("dd/MM/yyyy"),
+                    Total = double.Parse(dt.Rows[i]["total"].ToString()),
+                    Cliente_Id = dt.Rows[i]["cliente"].ToString(),
+                    Vendedor_Id = dt.Rows[i]["vendedor"].ToString()
+                };
+                lista.Add(item);
+            }
+
+            return lista;
+        }
 
         public List<ClienteModel> RetornarListaClientes()
         {
@@ -32,6 +64,8 @@ namespace SistemaVendas.Models
         public void Inserir()
         {
             DAL objDAL = new DAL();
+
+            //TODO: Corrigir campo data
             string dataVenda = DateTime.Now.Date.ToString("yyyy/MM/dd");
             //DateTime dataVenda = DateTime.Now;
 
