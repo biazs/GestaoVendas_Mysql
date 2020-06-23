@@ -47,8 +47,6 @@ D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVend
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.csproj.CoreCompileInputs.cache
-D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.MvcApplicationPartsAssemblyInfo.cache
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Home\Login.cshtml.g.cs
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Home\Menu.cshtml.g.cs
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Cliente\Index.cshtml.g.cs
@@ -63,3 +61,7 @@ D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVend
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Produto\Excluir.cshtml.g.cs
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Produto\ExcluirProduto.cshtml.g.cs
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Produto\Index.cshtml.g.cs
+D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Venda\Registrar.cshtml.g.cs
+D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.csproj.CoreCompileInputs.cache
+D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.MvcApplicationPartsAssemblyInfo.cache
