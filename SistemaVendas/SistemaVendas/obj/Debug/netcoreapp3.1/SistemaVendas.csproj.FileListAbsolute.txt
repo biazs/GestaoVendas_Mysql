@@ -70,3 +70,4 @@ D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVend
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Relatorio\Grafico.cshtml.g.cs
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Relatorio\Index.cshtml.g.cs
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Relatorio\Vendas.cshtml.g.cs
+D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutLogin.cshtml.g.cs

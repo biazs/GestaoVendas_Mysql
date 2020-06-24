@@ -27,7 +27,7 @@ namespace SistemaVendas.Models
             Command.Parameters.AddWithValue("@senha", Senha);
 
             DAL objDAL = new DAL();
-            DataTable dt = objDAL.RetDataTable(sql);
+            DataTable dt = objDAL.RetDataTable(Command);
 
             if (dt.Rows.Count == 1)
             {
