@@ -1,40 +1,86 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sistema Gestão de Vendas</title>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-</head>
-<body onload="CarregaUsuarioLogado()">
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Menu">Sistema Gestão de Vendas</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Menu">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login" id="login">Entrar no Sistema</a>
-                        </li>
-                    </ul>
 
-                </div>
-                @using Microsoft.AspNetCore.Http;
-                @inject IHttpContextAccessor HttpContextAccessor;
-                <div id="NomeUsuarioLogado"></div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
+    <style type="text/css">
+        body {
+            background-image: url('../../img/bg.jpg');
+            background-repeat: no-repeat;
+        }
+
+        .login-form {
+            width: 385px;
+            margin: 30px auto;
+        }
+
+            .login-form form {
+                margin-bottom: 15px;
+                background: #f7f7f7;
+                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+                padding: 30px;
+            }
+
+            .login-form h2 {
+                margin: 0 0 15px;
+            }
+
+        .form-control, .login-btn {
+            min-height: 38px;
+            border-radius: 2px;
+        }
+
+        .input-group-addon .fa {
+            font-size: 18px;
+        }
+
+        .login-btn {
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .social-btn .btn {
+            border: none;
+            margin: 10px 3px 0;
+            opacity: 1;
+        }
+
+            .social-btn .btn:hover {
+                opacity: 0.9;
+            }
+
+        .social-btn .btn-primary {
+            background: #507cc0;
+        }
+
+        .social-btn .btn-info {
+            background: #64ccf1;
+        }
+
+        .social-btn .btn-danger {
+            background: #df4930;
+        }
+
+        .or-seperator {
+            margin-top: 20px;
+            text-align: center;
+            border-top: 1px solid #ccc;
+        }
+
+            .or-seperator i {
+                padding: 0 10px;
+                background: #f7f7f7;
+                position: relative;
+                top: -11px;
+                z-index: 1;
+            }
+    </style>
+
+</head>
+<body>
+    <div class="container body-content" style="padding-top:15px;">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -45,26 +91,5 @@
             &copy; 2020 - Sistema Gestão de Vendas - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacidade</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
-    <script>
-        function CarregaUsuarioLogado()
-        {
-            var nome = '@HttpContextAccessor.HttpContext.Session.GetString("NomeUsuarioLogado")';
-
-            if (nome != '') { // Usuário logado
-                var divNome = document.getElementById("NomeUsuarioLogado");
-                divNome.innerHTML = "Olá " + nome + " " + "<a href='../Home/Login/0'>(Sair)</a>";
-                divNome.style = "";
-                var linkLogin = document.getElementById("login");
-                linkLogin.style = "display: none;";
-            }
-            else {
-                window.location.href = '../Home/Login';
-            }
-        }
-    </script>
 </body>
 </html>
