@@ -91,6 +91,18 @@
         <span asp-validation-for="Unidade_Medida" class="text-danger"></span>
     </div>
     <div class="form-group">
+        <label>Fornecedor</label>
+        <select asp-for="Fornecedor_Id" class="form-control">
+            @{
+                foreach (var item in (List<FornecedorModel>)ViewBag.ListaFornecedores)
+                {
+                    <option value="@item.Id">@item.Nome</option>
+                }
+            }
+
+        </select>
+    </div>
+    <div class="form-group">
         <label>Foto</label>
         @try
         {

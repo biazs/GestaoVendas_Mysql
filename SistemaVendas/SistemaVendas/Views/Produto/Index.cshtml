@@ -11,6 +11,7 @@
             <th>Preço Unitario</th>
             <th>Quantidade em Estoque</th>
             <th>Unidade de Medida</th>
+            <th>Fornecedor</th>
             <th>Foto</th>
         </tr>
     </thead>
@@ -52,6 +53,7 @@
                             }
                         } @unidade_medida
                     </td>
+                    <td>@item.Fornecedor_Id</td>
                     <td><img src="@item.Link_Foto" width="150" height="150" /></td>
                 </tr>
             }

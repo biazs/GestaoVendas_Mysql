@@ -11,7 +11,6 @@ namespace SistemaVendas.Models
         [Required(ErrorMessage = "Informe o nome do produto.")]
         public string Nome { get; set; }
 
-
         [Required(ErrorMessage = "Informe a descrição do produto.")]
         public string Descricao { get; set; }
 
@@ -29,12 +28,17 @@ namespace SistemaVendas.Models
         [Required(ErrorMessage = "Informe o link da imagem do produto.")]
         public string Link_Foto { get; set; }
 
+        public string Fornecedor_Id { get; set; }
+
 
         public List<ProdutoModel> ListarTodosProdutos()
         {
             List<ProdutoModel> lista = new List<ProdutoModel>();
             ProdutoModel item;
-            string sql = $"select id, nome, descricao, preco_unitario, quantidade_estoque, unidade_medida, link_foto FROM produto ORDER BY nome asc";
+            string sql = "SELECT p.id, p.nome, p.descricao, p.preco_unitario, p.quantidade_estoque, p.unidade_medida, p.link_foto, " +
+                         $"f.nome as nome_fornecedor " +
+                         $"FROM produto p inner join fornecedor f on p.fornecedor_id = f.id " +
+                         "ORDER BY nome asc";
             DAL objDAL = new DAL();
             DataTable dt = objDAL.RetDataTable(sql);
 
@@ -48,6 +52,7 @@ namespace SistemaVendas.Models
                     Preco_Unitario = decimal.Parse(dt.Rows[i]["preco_unitario"].ToString()),
                     Quantidade_Estoque = decimal.Parse(dt.Rows[i]["quantidade_estoque"].ToString()),
                     Unidade_Medida = dt.Rows[i]["unidade_medida"].ToString(),
+                    Fornecedor_Id = dt.Rows[i]["nome_fornecedor"].ToString(),
                     Link_Foto = dt.Rows[i]["link_foto"].ToString(),
                 };
                 lista.Add(item);
@@ -59,7 +64,11 @@ namespace SistemaVendas.Models
         public ProdutoModel RetornarProduto(int? id)
         {
             ProdutoModel item;
-            string sql = $"select id, nome, descricao, preco_unitario, quantidade_estoque, unidade_medida, link_foto FROM produto WHERE id = '{id}' ORDER BY nome asc";
+            string sql = $"SELECT p.id, p.nome, p.descricao, p.preco_unitario, p.quantidade_estoque, p.unidade_medida, p.link_foto, " +
+                         $"f.nome as nome_fornecedor " +
+                         $"FROM produto p inner join fornecedor f on p.fornecedor_id = f.id " +
+                         $"WHERE p.id = '{id}' ORDER BY p.nome asc";
+
             DAL objDAL = new DAL();
             DataTable dt = objDAL.RetDataTable(sql);
 
@@ -71,6 +80,7 @@ namespace SistemaVendas.Models
                 Preco_Unitario = decimal.Parse(dt.Rows[0]["preco_unitario"].ToString()),
                 Quantidade_Estoque = decimal.Parse(dt.Rows[0]["quantidade_estoque"].ToString()),
                 Unidade_Medida = dt.Rows[0]["unidade_medida"].ToString(),
+                Fornecedor_Id = dt.Rows[0]["nome_fornecedor"].ToString(),
                 Link_Foto = dt.Rows[0]["link_foto"].ToString(),
             };
 
@@ -90,13 +100,14 @@ namespace SistemaVendas.Models
                     $"preco_unitario = '{Preco_Unitario.ToString().Replace(",", ".")}', " +
                     $"quantidade_estoque = '{Quantidade_Estoque}', " +
                     $"unidade_medida = '{Unidade_Medida}', " +
-                    $"link_foto = '{Link_Foto}' " +
+                    $"link_foto = '{Link_Foto}', " +
+                    $"fornecedor_id = '{Fornecedor_Id}' " +
                     $"WHERE id = '{Id}'";
             }
             else
             {
-                sql = $"INSERT into produto(nome, descricao, preco_unitario, quantidade_estoque, unidade_medida, link_foto ) " +
-                      $"VALUES ('{Nome}','{Descricao}', '{Preco_Unitario}','{Quantidade_Estoque}', '{Unidade_Medida}','{Link_Foto}')";
+                sql = $"INSERT into produto(nome, descricao, preco_unitario, quantidade_estoque, unidade_medida, link_foto, fornecedor_id ) " +
+                      $"VALUES ('{Nome}','{Descricao}', '{Preco_Unitario}','{Quantidade_Estoque}', '{Unidade_Medida}','{Link_Foto}', '{Fornecedor_Id}')";
             }
 
             objDAL.ExecutarComandoSQL(sql);

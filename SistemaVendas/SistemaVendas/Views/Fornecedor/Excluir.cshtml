@@ -1,0 +1,15 @@
+﻿<h2>Excluir Fornecedor</h2>
+
+<h3>Deseja realmente excluir o Fornecedor selecionado?</h3>
+
+<button type="button" class="btn btn-danger" onclick="Nao()">Não</button>
+<button type="button" class="btn btn-success" onclick="Sim()">Sim</button>
+
+<script>
+    function Nao() {
+        window.location.href = '../../Fornecedor/Index';
+    }
+    function Sim() {
+        window.location.href = '../../Fornecedor/ExcluirFornecedor/' + '@ViewData["idExcluir"].ToString()';
+    }
+</script>

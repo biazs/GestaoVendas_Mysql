@@ -1,0 +1,47 @@
+﻿<h3>Lista de Fornecedores</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>CNPJ</th>
+            <th>Contato</th>
+            <th>Telefone</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var item in (List<FornecedorModel>)ViewBag.ListaFornecedores)
+            {
+                <tr>
+                    <td><button type="button" class="btn btn-warning" onclick="Editar(@item.Id)">Editar</button></td>
+                    <td><button type="button" class="btn btn-danger" onclick="Excluir(@item.Id)">Excluir</button></td>
+                    <td>@item.Id</td>
+                    <td>@item.Nome</td>
+                    <td>@item.CNPJ</td>
+                    <td>@item.Contato</td>
+                    <td>@item.Telefone</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<br />
+<button class="btn btn-block btn-primary" type="button" onclick="Cadastrar()">Cadastrar Fornecedor</button>
+
+<script>
+    function Cadastrar() {
+        window.location.href = "../Fornecedor/Cadastro";
+    }
+
+    function Editar(id) {
+        window.location.href = "../Fornecedor/Cadastro/" + id;
+    }
+
+    function Excluir(id) {
+        window.location.href = "../Fornecedor/Excluir/" + id;
+    }
+</script>   

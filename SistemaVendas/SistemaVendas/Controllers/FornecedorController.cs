@@ -3,31 +3,30 @@ using SistemaVendas.Models;
 
 namespace SistemaVendas.Controllers
 {
-    public class ProdutoController : Controller
+    public class FornecedorController : Controller
     {
         public IActionResult Index()
         {
-            ViewBag.ListaProdutos = new ProdutoModel().ListarTodosProdutos();
+            ViewBag.ListaFornecedores = new FornecedorModel().ListarTodosFornecedores();
             return View();
         }
 
         [HttpGet]
         public IActionResult Cadastro(int? id)
         {
-            CarregarDados();
             if (id != null)
             {
-                ViewBag.Produto = new ProdutoModel().RetornarProduto(id);
+                ViewBag.Fornecedor = new FornecedorModel().RetornarFornecedor(id);
             }
             return View();
         }
 
         [HttpPost]
-        public IActionResult Cadastro(ProdutoModel produto)
+        public IActionResult Cadastro(FornecedorModel fornecedor)
         {
             if (ModelState.IsValid)
             {
-                produto.Gravar();
+                fornecedor.Gravar();
                 return RedirectToAction("Index");
             }
             return View();
@@ -39,15 +38,11 @@ namespace SistemaVendas.Controllers
             return View();
         }
 
-        public IActionResult ExcluirProduto(int id)
+        public IActionResult ExcluirFornecedor(int id)
         {
-            new ProdutoModel().Excluir(id);
+            new FornecedorModel().Excluir(id);
             return View();
         }
 
-        private void CarregarDados()
-        {
-            ViewBag.ListaFornecedores = new FornecedorModel().RetornarListaFornecedores();
-        }
     }
 }
