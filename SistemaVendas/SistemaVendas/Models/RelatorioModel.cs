@@ -1,8 +1,10 @@
-﻿namespace SistemaVendas.Models
+﻿using System;
+
+namespace SistemaVendas.Models
 {
     public class RelatorioModel
     {
-        public string DataDe { get; set; }
-        public string DataAte { get; set; }
+        public DateTime DataDe { get; set; }
+        public DateTime DataAte { get; set; }
     }
 }

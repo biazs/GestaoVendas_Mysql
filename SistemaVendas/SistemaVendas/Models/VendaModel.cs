@@ -15,14 +15,30 @@ namespace SistemaVendas.Models
         public double Total { get; set; }
         public string ListaProdutos { get; set; }
 
+
+        //Para atender filtro do relatório
+        public List<VendaModel> ListagemVendas(string DataDe, string DataAte)
+        {
+            return RetornarListagemVendas(DataDe, DataAte);
+        }
+
+        //Listagem Geral
         public List<VendaModel> ListagemVendas()
         {
+            return RetornarListagemVendas("1900/01/01", "2300/01/01");
+        }
+
+        private List<VendaModel> RetornarListagemVendas(string DataDe, string DataAte)
+        {
+
             List<VendaModel> lista = new List<VendaModel>();
             VendaModel item;
             //TODO: Corrigir campo data
-            //string sql = "SELECT v1.id, v1.data, v1.total, v2.nome as vendedor, c.nome as cliente FROM " +
-            //             "venda v1 inner join vendedor v2 on v1.vendedor_id = v2.id inner join cliente c " +
-            //             "on v1.cliente_id = c.id ORDER BY data, total";
+            string sqlCorreto = "SELECT v1.id, v1.data, v1.total, v2.nome as vendedor, c.nome as cliente FROM " +
+                         "venda v1 inner join vendedor v2 on v1.vendedor_id = v2.id inner join cliente c " +
+                         "on v1.cliente_id = c.id " +
+                         $"WHERE v1.data >= '{DataDe}' and v1.data <= '{DataAte}'" +
+                         "ORDER BY data, total";
 
             string sql = "SELECT v1.id,  v1.total, v2.nome as vendedor , c.nome as cliente " +
                          "FROM sistema_venda.venda v1 inner join sistema_venda.vendedor v2 on v1.vendedor_id = v2.id " +
