@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Rotativa.AspNetCore;
 using SistemaVendas.Libraries.Mensagem;
 using SistemaVendas.Models;
 
@@ -16,7 +17,7 @@ namespace SistemaVendas.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            ViewBag.ListaVendas = new VendaModel().ListagemVendas();
+            CarregaLista();
             return View();
         }
 
@@ -36,6 +37,25 @@ namespace SistemaVendas.Controllers
             CarregarDados();
             TempData["MSG_S"] = Mensagem.MSG_S001;
             return View();
+        }
+
+        public IActionResult VisualizarComoPDF()
+        {
+            CarregaLista();
+
+            var pdf = new ViewAsPdf
+            {
+                ViewName = "VisualizarComoPDF",
+                IsGrayScale = true,
+                Model = ViewBag.ListaVendas
+            };
+
+            return pdf;
+        }
+
+        private void CarregaLista()
+        {
+            ViewBag.ListaVendas = new VendaModel().ListagemVendas();
         }
 
         private void CarregarDados()

@@ -4,15 +4,18 @@
 {
     <p class="alert alert-success">@TempData["MSG_S"]</p>
 }
-
+<br />
+<a href="../Vendedor/VisualizarComoPDF/" target="_blank"><img src="../img/pdf.png" alt="Gerar PDF" width="26" height="34" /> Gerar Relatório</a>
+<br />
+<br />
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th></th>
-            <th></th>
             <th>Id</th>
             <th>Nome</th>
             <th>E-mail</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -20,11 +23,11 @@
             foreach (var item in (List<VendedorModel>)ViewBag.ListaVendedores)
             {
                 <tr>
-                    <td><button type="button" class="btn btn-warning" onclick="Editar(@item.Id)">Editar</button></td>
-                    <td><button type="button" class="btn btn-danger" onclick="Excluir(@item.Id)">Excluir</button></td>
                     <td>@item.Id</td>
                     <td>@item.Nome</td>
                     <td>@item.Email</td>
+                    <td><button type="button" class="btn btn-warning" onclick="Editar(@item.Id)">Editar</button></td>
+                    <td><button type="button" class="btn btn-danger" onclick="Excluir(@item.Id)">Excluir</button></td>
                 </tr>
             }
         }

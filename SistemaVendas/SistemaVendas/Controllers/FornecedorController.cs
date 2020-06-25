@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Rotativa.AspNetCore;
 using SistemaVendas.Libraries.Mensagem;
 using SistemaVendas.Models;
 
@@ -9,7 +10,7 @@ namespace SistemaVendas.Controllers
     {
         public IActionResult Index()
         {
-            ViewBag.ListaFornecedores = new FornecedorModel().ListarTodosFornecedores();
+            CarregaLista();
             return View();
         }
 
@@ -45,6 +46,24 @@ namespace SistemaVendas.Controllers
         {
             new FornecedorModel().Excluir(id);
             return View();
+        }
+
+        public IActionResult VisualizarComoPDF()
+        {
+            CarregaLista();
+
+            var pdf = new ViewAsPdf
+            {
+                ViewName = "VisualizarComoPDF",
+                IsGrayScale = true,
+                Model = ViewBag.ListaFornecedores
+            };
+
+            return pdf;
+        }
+        private void CarregaLista()
+        {
+            ViewBag.ListaFornecedores = new FornecedorModel().ListarTodosFornecedores();
         }
 
     }
