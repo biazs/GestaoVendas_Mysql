@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Rotativa.AspNetCore;
 
 namespace SistemaVendas
 {
@@ -51,6 +52,8 @@ namespace SistemaVendas
                     name: "default",
                     pattern: "{controller=Home}/{action=Login}/{id?}");
             });
+
+            RotativaConfiguration.Setup((Microsoft.AspNetCore.Hosting.IHostingEnvironment)env);
         }
     }
 }
