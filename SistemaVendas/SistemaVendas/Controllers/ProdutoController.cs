@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SistemaVendas.Libraries.Mensagem;
 using SistemaVendas.Models;
 
 namespace SistemaVendas.Controllers
@@ -28,6 +29,7 @@ namespace SistemaVendas.Controllers
             if (ModelState.IsValid)
             {
                 produto.Gravar();
+                TempData["MSG_S"] = Mensagem.MSG_S001;
                 return RedirectToAction("Index");
             }
             return View();
