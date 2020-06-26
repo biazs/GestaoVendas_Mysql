@@ -1,0 +1,25 @@
+You Can create an Identity Database along with your MySQL Database and use the Identity database for your authorization
+
+This is how I do it.
+
+
+//MySQL Database 
+     services.AddDbContext<EFDbContext>(options =>
+                options.UseSqlServer("Server = ; Database =MySQL  ; Trusted_Connection = True; MultipleActiveResultSets = true"));
+//Identity Database               
+     services.AddDbContext<EFIdentityDbContext>(options =>
+                    options.UseSqlServer("Server = ; Database = Identity; Trusted_Connection = True; MultipleActiveResultSets = true"));
+
+
+This should work fine along with your MySQL DB
+
+public class EFIdentityDbContext : IdentityDbContext
+{
+    public EFIdentityDbContext(DbContextOptions<EFIdentityDbContext> options )
+        :base (options)
+    {
+
+    }
+
+
+}

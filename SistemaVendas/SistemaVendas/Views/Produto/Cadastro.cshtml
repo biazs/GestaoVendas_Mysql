@@ -34,8 +34,8 @@
     </div>
     <div class="form-group">
         <label>Quantidade Estoque</label>
-        <input asp-for="Quantidade_Estoque" type="text" class="form-control" value="@try { @ViewBag.Produto.Quantidade_Estoque } catch { }" />
-        <span asp-validation-for="Quantidade_Estoque" class="text-danger"></span>
+        <input asp-for="Quantidade" type="text" class="form-control" value="@try { @ViewBag.Produto.Quantidade } catch { }" />
+        <span asp-validation-for="Quantidade" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label>Unidade de Medida</label>
