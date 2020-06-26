@@ -38,6 +38,8 @@ namespace SistemaVendas.Models
                 lista.Add(item);
             }
 
+            objDAL.FecharConexao();
+
             return lista;
         }
     }

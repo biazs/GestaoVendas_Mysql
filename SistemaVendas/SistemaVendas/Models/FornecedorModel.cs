@@ -41,6 +41,7 @@ namespace SistemaVendas.Models
                 };
                 lista.Add(item);
             }
+            objDAL.FecharConexao();
 
             return lista;
         }
@@ -61,6 +62,8 @@ namespace SistemaVendas.Models
                 Contato = dt.Rows[0]["contato"].ToString(),
                 Telefone = dt.Rows[0]["telefone"].ToString()
             };
+
+            objDAL.FecharConexao();
 
             return item;
         }
@@ -87,6 +90,8 @@ namespace SistemaVendas.Models
 
             objDAL.ExecutarComandoSQL(sql);
 
+            objDAL.FecharConexao();
+
         }
 
         public void Excluir(int id)
@@ -94,6 +99,7 @@ namespace SistemaVendas.Models
             DAL objDAL = new DAL();
             string sql = $"DELETE FROM fornecedor WHERE id = '{id}'";
             objDAL.ExecutarComandoSQL(sql);
+            objDAL.FecharConexao();
         }
 
         public List<FornecedorModel> RetornarListaFornecedores()

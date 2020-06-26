@@ -55,6 +55,8 @@ namespace SistemaVendas.Models
                 lista.Add(item);
             }
 
+            objDAL.FecharConexao();
+
             return lista;
         }
 
@@ -106,6 +108,7 @@ namespace SistemaVendas.Models
                 objDAL.ExecutarComandoSQL(sql);
             }
 
+            objDAL.FecharConexao();
         }
     }
 }

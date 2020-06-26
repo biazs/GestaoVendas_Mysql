@@ -39,6 +39,8 @@ namespace SistemaVendas.Models
                 lista.Add(item);
             }
 
+            objDAL.FecharConexao();
+
             return lista;
         }
 
@@ -56,6 +58,8 @@ namespace SistemaVendas.Models
                 Email = dt.Rows[0]["email"].ToString(),
                 Senha = dt.Rows[0]["senha"].ToString(),
             };
+
+            objDAL.FecharConexao();
 
             return item;
         }
@@ -76,6 +80,8 @@ namespace SistemaVendas.Models
 
             objDAL.ExecutarComandoSQL(sql);
 
+            objDAL.FecharConexao();
+
         }
 
         public void Excluir(int id)
@@ -83,6 +89,8 @@ namespace SistemaVendas.Models
             DAL objDAL = new DAL();
             string sql = $"DELETE FROM vendedor WHERE id = '{id}'";
             objDAL.ExecutarComandoSQL(sql);
+
+            objDAL.FecharConexao();
         }
     }
 }

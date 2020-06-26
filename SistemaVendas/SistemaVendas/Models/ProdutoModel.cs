@@ -93,6 +93,8 @@ namespace SistemaVendas.Models
                 Link_Foto = dt.Rows[0]["link_foto"].ToString(),
             };
 
+            objDAL.FecharConexao();
+
             return item;
         }
 
@@ -154,10 +156,12 @@ namespace SistemaVendas.Models
                 string id_estoque = dt.Rows[0]["id"].ToString();
 
                 //Inserir na tabela produto_estoque
-                sql = $"INSERT into 1produto_estoque(produto_id, estoque_id ) " +
+                sql = $"INSERT into produto_estoque(produto_id, estoque_id ) " +
                       $"VALUES ('{id_produto}', '{id_estoque}')";
                 objDAL.ExecutarComandoSQL(sql);
             }
+
+            objDAL.FecharConexao();
 
         }
 
