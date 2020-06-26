@@ -101,10 +101,16 @@ namespace SistemaVendas.Models
 
                 objDAL.ExecutarComandoSQL(sql);
 
-                //Baixar produto do estoque
-                sql = "UPDATE produto " +
-                    "SET quantidade_estoque = (quantidade_estoque - " + int.Parse(lista_produtos[i].QtdeProduto.ToString()) + ") " +
-                    $"WHERE id = {lista_produtos[i].CodigoProduto.ToString()}";
+
+                //Buscar o ID do estoque
+                sql = $"SELECT estoque_id FROM produto_estoque WHERE produto_id = '{lista_produtos[i].CodigoProduto.ToString()}'";
+                dt = objDAL.RetDataTable(sql);
+                string id_estoque = dt.Rows[0]["estoque_id"].ToString();
+
+                //Baixar quantidade do estoque
+                sql = "UPDATE estoque " +
+                    "SET quantidade = (quantidade - " + int.Parse(lista_produtos[i].QtdeProduto.ToString()) + ") " +
+                    $"WHERE id = {id_estoque}";
                 objDAL.ExecutarComandoSQL(sql);
             }
 
