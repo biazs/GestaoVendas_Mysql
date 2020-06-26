@@ -154,7 +154,7 @@ namespace SistemaVendas.Models
                 string id_estoque = dt.Rows[0]["id"].ToString();
 
                 //Inserir na tabela produto_estoque
-                sql = $"INSERT into produto_estoque(produto_id, estoque_id ) " +
+                sql = $"INSERT into 1produto_estoque(produto_id, estoque_id ) " +
                       $"VALUES ('{id_produto}', '{id_estoque}')";
                 objDAL.ExecutarComandoSQL(sql);
             }
@@ -164,8 +164,26 @@ namespace SistemaVendas.Models
         public void Excluir(int id)
         {
             DAL objDAL = new DAL();
-            string sql = $"DELETE FROM produto WHERE id = '{id}'";
+
+            //Armazenar o ID do estoque que será removido
+            string sql = $"SELECT estoque_id FROM produto_estoque WHERE produto_id = '{id}'";
+            DataTable dt = objDAL.RetDataTable(sql);
+            string id_estoque = dt.Rows[0]["estoque_id"].ToString();
+
+            //Remover da tabela produto_estoque
+            sql = $"DELETE FROM produto_estoque WHERE produto_id = '{id}'";
             objDAL.ExecutarComandoSQL(sql);
+
+            //Remover da tabela produto
+            sql = $"DELETE FROM produto WHERE id = '{id}'";
+            objDAL.ExecutarComandoSQL(sql);
+
+
+            //Remover da tabela estoque
+            sql = $"DELETE FROM produto WHERE id = '{id_estoque}'";
+            objDAL.ExecutarComandoSQL(sql);
+
+            objDAL.FecharConexao();
         }
     }
 }

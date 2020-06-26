@@ -49,5 +49,14 @@ namespace SistemaVendas.Uteis
             Command.ExecuteNonQuery();
         }
 
+        public void FecharConexao()
+        {
+            if (Connection.State == ConnectionState.Open)
+            {
+                Connection.Close();
+            }
+
+        }
+
     }
 }
