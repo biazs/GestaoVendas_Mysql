@@ -1,6 +1,11 @@
 ﻿@model VendaModel
 
 <h2>Registrar uma venda</h2>
+<br />
+@if (TempData["MSG_S"] != null)
+{
+    <p class="alert alert-success">@TempData["MSG_S"]</p>
+}
 <form asp-controller="Venda" asp-action="Registrar" method="post">
     @*<input type="hidden" asp-for="Id" value="@try { @ViewBag.Venda.Id } catch { }" />*@
 
@@ -18,21 +23,21 @@
     </div>
 
     @*<div class="form-group">
-        <label>Vendedor</label>
-        <select asp-for="Vendedor_Id" class="form-control">
-            @{
-                foreach (var item in (List<VendedorModel>)ViewBag.ListaVendedores)
-                {
-                    <option value="@item.Id">@item.Nome</option>
+            <label>Vendedor</label>
+            <select asp-for="Vendedor_Id" class="form-control">
+                @{
+                    foreach (var item in (List<VendedorModel>)ViewBag.ListaVendedores)
+                    {
+                        <option value="@item.Id">@item.Nome</option>
+                    }
                 }
-            }
 
-        </select>
-    </div>*@
+            </select>
+        </div>*@
 
     <label>Produtos</label><br />
     <div class="form-group">
-        <div class="col-lg-9">
+        <div class="col-lg-7">
             <select class="form-control" id="sltProduto">
                 @{
                     foreach (var item in (List<ProdutoModel>)ViewBag.ListaProdutos)
@@ -60,6 +65,7 @@
                 <td>Quantidade</td>
                 <td>Preço Unitário</td>
                 <td>Total</td>
+                <td></td>
             </tr>
         </thead>
         <tbody id="listaProdutos">
@@ -115,6 +121,7 @@
             "<td>" + QtdeProduto.value + "</td>" +
             "<td> R$" + arrayDescricaoPreco[1] + "</td>" +
             "<td> R$" + total + "</td>" +
+            "<td><button type='button' class='btn btn-danger' onclick='RemoverProdutoDaLista(" + CodigoProduto.value + ")'>Remover</button></td>" +
             "</tr>";
 
         ListaProdutos.innerHTML += produto;
@@ -122,6 +129,20 @@
         var totalGeral = Math.round((TotalVenda.innerText * 1 + total) * 100) / 100;
         TotalVenda.innerHTML = totalGeral;
         txtTotal.value = totalGeral.toString().replace(".", ",");
+    }
+
+    function RemoverProdutoDaLista(codigo) {
+
+        //var produto = "<tr>" +
+        //    "<td>" + CodigoProduto.value + "</td>" +
+        //    "<td>" + arrayDescricaoPreco[0] + "</td>" +
+        //    "<td>" + QtdeProduto.value + "</td>" +
+        //    "<td> R$" + arrayDescricaoPreco[1] + "</td>" +
+        //    "<td> R$" + total + "</td>" +
+        //    "<td><button type='button' class='btn btn-danger' onclick='RemoverProdutoDaLista()'>Remover</button></td>" +
+        //    "</tr>";
+
+        //ListaProdutos.innerHTML += produto;
     }
 
 </script>
