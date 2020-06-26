@@ -25,24 +25,20 @@ namespace SistemaVendas.Models
         //Listagem Geral
         public List<VendaModel> ListagemVendas()
         {
-            return RetornarListagemVendas("1900/01/01", "2300/01/01");
+            return RetornarListagemVendas("1900-01-01", "2300-01-01");
         }
 
         private List<VendaModel> RetornarListagemVendas(string DataDe, string DataAte)
         {
-
             List<VendaModel> lista = new List<VendaModel>();
             VendaModel item;
-            //TODO: Corrigir campo data
-            string sqlCorreto = "SELECT v1.id, v1.data, v1.total, v2.nome as vendedor, c.nome as cliente FROM " +
+
+            string sql = "SELECT v1.id, v1.data, v1.total, v2.nome as vendedor, c.nome as cliente FROM " +
                          "venda v1 inner join vendedor v2 on v1.vendedor_id = v2.id inner join cliente c " +
                          "on v1.cliente_id = c.id " +
                          $"WHERE v1.data >= '{DataDe}' and v1.data <= '{DataAte}'" +
                          "ORDER BY data, total";
 
-            string sql = "SELECT v1.id,  v1.total, v2.nome as vendedor , c.nome as cliente " +
-                         "FROM sistema_venda.venda v1 inner join sistema_venda.vendedor v2 on v1.vendedor_id = v2.id " +
-                         "inner join sistema_venda.cliente c on v1.cliente_id = c.id ORDER BY total";
             DAL objDAL = new DAL();
             DataTable dt = objDAL.RetDataTable(sql);
 
@@ -51,7 +47,7 @@ namespace SistemaVendas.Models
                 item = new VendaModel
                 {
                     Id = dt.Rows[i]["id"].ToString(),
-                    //Data = DateTime.Parse(dt.Rows[i]["data"].ToString()).ToString("dd/MM/yyyy"),
+                    Data = DateTime.Parse(dt.Rows[i]["data"].ToString()).ToString("dd-MM-yyyy"),
                     Total = double.Parse(dt.Rows[i]["total"].ToString()),
                     Cliente_Id = dt.Rows[i]["cliente"].ToString(),
                     Vendedor_Id = dt.Rows[i]["vendedor"].ToString()
@@ -81,17 +77,14 @@ namespace SistemaVendas.Models
         {
             DAL objDAL = new DAL();
 
-            //TODO: Corrigir campo data
-            string dataVenda = DateTime.Now.Date.ToString("yyyy/MM/dd");
-            //DateTime dataVenda = DateTime.Now;
+            string dataVenda = DateTime.Now.Date.ToString("yyyy-MM-dd");
 
             string sql = $"INSERT INTO venda (data, total, vendedor_id, cliente_id)" +
-                $"VALUES({dataVenda}, {Total.ToString().Replace(",", ".")}, {Vendedor_Id}, {Cliente_Id})";
+                $"VALUES('{dataVenda}', {Total.ToString().Replace(",", ".")}, {Vendedor_Id}, {Cliente_Id})";
             objDAL.ExecutarComandoSQL(sql);
 
-
             //Recuperar o ID da venda
-            sql = $"select id from venda where data={dataVenda} and vendedor_id={Vendedor_Id} and cliente_id={Cliente_Id} order by id desc limit 1";
+            sql = $"select id from venda where data='{dataVenda}' and vendedor_id={Vendedor_Id} and cliente_id={Cliente_Id} order by id desc limit 1";
             DataTable dt = objDAL.RetDataTable(sql);
             string id_venda = dt.Rows[0]["id"].ToString();
 

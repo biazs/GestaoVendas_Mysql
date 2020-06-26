@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using SistemaVendas.Libraries.Mensagem;
 using SistemaVendas.Models;
 
 namespace SistemaVendas.Controllers
@@ -26,9 +27,14 @@ namespace SistemaVendas.Controllers
             }
             else
             {
-                string DataDe = relatorio.DataDe.ToString("yyyy/MM/dd");
-                string DataAte = relatorio.DataAte.ToString("yyyy/MM/dd");
+                string DataDe = relatorio.DataDe.ToString("yyyy-MM-dd");
+                string DataAte = relatorio.DataAte.ToString("yyyy-MM-dd");
                 ViewBag.ListaVendas = new VendaModel().ListagemVendas(DataDe, DataAte);
+            }
+
+            if (ViewBag.ListaVendas.Count == 0)
+            {
+                TempData["MSG_E"] = Mensagem.MSG_E007;
             }
 
             return View();

@@ -115,6 +115,15 @@ namespace SistemaVendas.Libraries.Mensagem {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Não foram encontradas vendas registradas para o período informado..
+        /// </summary>
+        public static string MSG_E007 {
+            get {
+                return ResourceManager.GetString("MSG_E007", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Registro salvo com sucesso..
         /// </summary>
         public static string MSG_S001 {
