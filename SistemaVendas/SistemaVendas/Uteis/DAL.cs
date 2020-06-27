@@ -17,6 +17,7 @@ namespace SistemaVendas.Uteis
         {
             Connection = new MySqlConnection(ConnectionString);
             Connection.Open();
+
         }
 
         //Espera um parâmetro do tipo string
@@ -49,12 +50,25 @@ namespace SistemaVendas.Uteis
             Command.ExecuteNonQuery();
         }
 
+        public MySqlCommand IniciarComando()
+        {
+            MySqlCommand Command = Connection.CreateCommand();
+            return Command;
+        }
+
         public void FecharConexao()
         {
             if (Connection.State == ConnectionState.Open)
             {
                 Connection.Close();
             }
+
+        }
+
+        public MySqlTransaction IniciarTransacao()
+        {
+
+            return Connection.BeginTransaction();
 
         }
 
