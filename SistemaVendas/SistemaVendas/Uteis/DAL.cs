@@ -50,12 +50,6 @@ namespace SistemaVendas.Uteis
             Command.ExecuteNonQuery();
         }
 
-        public MySqlCommand IniciarComando()
-        {
-            MySqlCommand Command = Connection.CreateCommand();
-            return Command;
-        }
-
         public void FecharConexao()
         {
             if (Connection.State == ConnectionState.Open)
@@ -65,11 +59,15 @@ namespace SistemaVendas.Uteis
 
         }
 
+        public MySqlCommand IniciarComando()
+        {
+            MySqlCommand Command = Connection.CreateCommand();
+            return Command;
+        }
+
         public MySqlTransaction IniciarTransacao()
         {
-
             return Connection.BeginTransaction();
-
         }
 
     }
