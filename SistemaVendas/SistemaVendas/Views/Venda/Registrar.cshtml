@@ -86,6 +86,8 @@
     var Itens = new Object();
     Itens.Produtos = new Array();
 
+    var click = 0;
+
     var CodigoProduto = document.getElementById("sltProduto");
     var QtdeProduto = document.getElementById("txtQuantidade");
     var ListaProdutos = document.getElementById("listaProdutos");
@@ -98,6 +100,14 @@
         window.location.href = '../../Venda/Index';
     }
 
+    function Item(CodigoProduto, Descricao, QtdeProduto, PrecoUnitario, Total) {
+        this.CodigoProduto = CodigoProduto;
+        this.Descricao = Descricao;
+        this.QtdeProduto = QtdeProduto;
+        this.PrecoUnitario = PrecoUnitario;
+        this.Total = Total;
+    }
+
     function AdicionarProduto() {
 
         var DescricaoPreco = CodigoProduto.options[CodigoProduto.selectedIndex].text;
@@ -105,6 +115,12 @@
         var total = (arrayDescricaoPreco[1].replace(",", ".") * QtdeProduto.value);
         total = Math.round(total * 100) / 100;
 
+        var item = new Item(CodigoProduto.value, arrayDescricaoPreco[0], QtdeProduto.value, arrayDescricaoPreco[1], total);
+
+        console.log(item);
+
+
+        // Preencher JSON - TODO: Refazer
         Itens.Produtos.push({
             "CodigoProduto": CodigoProduto.value,
             "Descricao": arrayDescricaoPreco[0],
@@ -112,37 +128,33 @@
             "PrecoUnitario": arrayDescricaoPreco[1],
             "Total": total
         });
-
         ListaProdutosJSON.innerHTML = JSON.stringify(Itens.Produtos);
 
-        var produto = "<tr>" +
-            "<td>" + CodigoProduto.value + "</td>" +
-            "<td>" + arrayDescricaoPreco[0] + "</td>" +
-            "<td>" + QtdeProduto.value + "</td>" +
-            "<td> R$" + arrayDescricaoPreco[1] + "</td>" +
-            "<td> R$" + total + "</td>" +
-            "<td><button type='button' class='btn btn-danger' onclick='RemoverProdutoDaLista(" + CodigoProduto.value + ")'>Remover</button></td>" +
+
+        // id da linha
+        click++;
+
+        //Exibe itens na tela
+        var produto = "<tr id=" + click + ">" +
+            "<td>" + item.CodigoProduto + "</td>" +
+            "<td>" + item.Descricao + "</td>" +
+            "<td>" + item.QtdeProduto + "</td>" +
+            "<td> R$" + item.PrecoUnitario + "</td>" +
+            "<td> R$" + item.Total + "</td>" +
+            "<td><button type='button' class='btn btn-danger' onclick='RemoverProdutoDaLista(" + click + ")'>Remover</button></td>" +
             "</tr>";
 
         ListaProdutos.innerHTML += produto;
 
+        //Exibe totalizador na tela
         var totalGeral = Math.round((TotalVenda.innerText * 1 + total) * 100) / 100;
         TotalVenda.innerHTML = totalGeral;
         txtTotal.value = totalGeral.toString().replace(".", ",");
     }
 
     function RemoverProdutoDaLista(codigo) {
-
-        //var produto = "<tr>" +
-        //    "<td>" + CodigoProduto.value + "</td>" +
-        //    "<td>" + arrayDescricaoPreco[0] + "</td>" +
-        //    "<td>" + QtdeProduto.value + "</td>" +
-        //    "<td> R$" + arrayDescricaoPreco[1] + "</td>" +
-        //    "<td> R$" + total + "</td>" +
-        //    "<td><button type='button' class='btn btn-danger' onclick='RemoverProdutoDaLista()'>Remover</button></td>" +
-        //    "</tr>";
-
-        //ListaProdutos.innerHTML += produto;
+        document.getElementById(codigo).remove();
+        // TODO: remover item do JSON
     }
 
 </script>
