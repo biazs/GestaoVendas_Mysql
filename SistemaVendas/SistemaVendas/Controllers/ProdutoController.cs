@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using Rotativa.AspNetCore;
 using SistemaVendas.Libraries.Mensagem;
 using SistemaVendas.Models;
@@ -29,9 +31,18 @@ namespace SistemaVendas.Controllers
         {
             if (ModelState.IsValid)
             {
-                produto.Gravar();
-                TempData["MSG_S"] = Mensagem.MSG_S001;
-                return RedirectToAction("Index");
+                try
+                {
+                    produto.Gravar();
+                    TempData["MSG_S"] = Mensagem.MSG_S001;
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Erro ao preencher produto. \n" + e.Message });
+                }
+
+
             }
             return View();
         }
@@ -60,6 +71,16 @@ namespace SistemaVendas.Controllers
             };
 
             return pdf;
+        }
+
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
 
         private void CarregaLista()

@@ -111,98 +111,98 @@ namespace SistemaVendas.Models
             // Start a local transaction
             myTrans = objDAL.IniciarTransacao();
 
-            try
+            // try
+            // {
+            // Must assign both transaction object and connection to Command object for a pending local transaction                
+            // myCommand.Connection = myConnection;
+            myCommand.Transaction = myTrans;
+
+            // ATUALIZAR
+            if (Id != null)
             {
-                // Must assign both transaction object and connection to Command object for a pending local transaction                
-                // myCommand.Connection = myConnection;
-                myCommand.Transaction = myTrans;
+                sql = $"UPDATE produto SET " +
+                    $"nome = '{Nome}', " +
+                    $"descricao = '{Descricao}', " +
+                    $"preco_unitario = '{Preco_Unitario.ToString().Replace(",", ".")}', " +
+                    $"unidade_medida = '{Unidade_Medida}', " +
+                    $"link_foto = '{Link_Foto}', " +
+                    $"fornecedor_id = '{Fornecedor_Id}' " +
+                    $"WHERE id = '{Id}'";
 
-                // ATUALIZAR
-                if (Id != null)
-                {
-                    sql = $"UPDATE produto SET " +
-                        $"nome = '{Nome}', " +
-                        $"descricao = '{Descricao}', " +
-                        $"preco_unitario = '{Preco_Unitario.ToString().Replace(",", ".")}', " +
-                        $"unidade_medida = '{Unidade_Medida}', " +
-                        $"link_foto = '{Link_Foto}', " +
-                        $"fornecedor_id = '{Fornecedor_Id}' " +
-                        $"WHERE id = '{Id}'";
-
-                    objDAL.ExecutarComandoSQL(sql);
+                objDAL.ExecutarComandoSQL(sql);
 
 
-                    //Recuperar o ID do estoque
-                    sql = $"SELECT estoque_id FROM produto_estoque WHERE produto_id={Id} ORDER BY estoque_id desc limit 1";
-                    DataTable dt = objDAL.RetDataTable(sql);
-                    string id_estoque = dt.Rows[0]["estoque_id"].ToString();
+                //Recuperar o ID do estoque
+                sql = $"SELECT estoque_id FROM produto_estoque WHERE produto_id={Id} ORDER BY estoque_id desc limit 1";
+                DataTable dt = objDAL.RetDataTable(sql);
+                string id_estoque = dt.Rows[0]["estoque_id"].ToString();
 
-                    //Atualizar tabela estoque
-                    sql = $"UPDATE estoque SET quantidade = '{Quantidade}' " +
-                          $"WHERE id = '{id_estoque}'";
-                    objDAL.ExecutarComandoSQL(sql);
+                //Atualizar tabela estoque
+                sql = $"UPDATE estoque SET quantidade = '{Quantidade}' " +
+                      $"WHERE id = '{id_estoque}'";
+                objDAL.ExecutarComandoSQL(sql);
 
 
-
-                }
-                // INSERIR
-                else
-                {
-                    sql = $"INSERT into produto(nome, descricao, preco_unitario, unidade_medida, link_foto, fornecedor_id ) " +
-                          $"VALUES ('{Nome}','{Descricao}', '{Preco_Unitario}', '{Unidade_Medida}','{Link_Foto}', '{Fornecedor_Id}')";
-
-                    objDAL.ExecutarComandoSQL(sql);
-
-                    //Recuperar o ID do produto
-                    sql = $"SELECT id FROM produto WHERE nome='{Nome}' AND " +
-                        $"fornecedor_id={Fornecedor_Id} AND descricao='{Descricao}' " +
-                        $"ORDER BY id desc limit 1";
-                    DataTable dt = objDAL.RetDataTable(sql);
-                    string id_produto = dt.Rows[0]["id"].ToString();
-
-                    //Inserir na tabela estoque
-                    sql = $"INSERT into estoque(quantidade) " +
-                          $"VALUES ('{Quantidade}')";
-                    objDAL.ExecutarComandoSQL(sql);
-
-                    //Recuperar o ID do estoque
-                    sql = $"SELECT id FROM estoque WHERE quantidade='{Quantidade}' " +
-                        $"ORDER BY id desc limit 1";
-                    dt = objDAL.RetDataTable(sql);
-                    string id_estoque = dt.Rows[0]["id"].ToString();
-
-                    //Inserir na tabela produto_estoque
-                    sql = $"INSERT into produto_estoque(produto_id, estoque_id ) " +
-                          $"VALUES ('{id_produto}', '{id_estoque}')";
-                    objDAL.ExecutarComandoSQL(sql);
-                }
-
-                myTrans.Commit();
 
             }
-
-            catch (Exception e)
+            // INSERIR
+            else
             {
-                try
-                {
-                    myTrans.Rollback();
-                }
-                catch (MySqlException ex)
-                {
-                    if (myTrans.Connection != null)
-                    {
-                        Console.WriteLine("Uma exceção do tipo " + ex.GetType() + " foi encontrada enquanto era realizado roll back da transação.");
-                    }
-                }
+                sql = $"INSERT into produto(nome, descricao, preco_unitario, unidade_medida, link_foto, fornecedor_id ) " +
+                      $"VALUES ('{Nome}','{Descricao}', '{Preco_Unitario}', '{Unidade_Medida}','{Link_Foto}', '{Fornecedor_Id}')";
 
-                Console.WriteLine("Uma exceção do tipo " + e.GetType() + " foi encontrada enquanto os dados eram inseridos.");
-                Console.WriteLine("Nenhum registro foi salvo no banco de dadoa.");
+                objDAL.ExecutarComandoSQL(sql);
+
+                //Recuperar o ID do produto
+                sql = $"SELECT id FROM produto WHERE nome='{Nome}' AND " +
+                    $"fornecedor_id={Fornecedor_Id} AND descricao='{Descricao}' " +
+                    $"ORDER BY id desc limit 1";
+                DataTable dt = objDAL.RetDataTable(sql);
+                string id_produto = dt.Rows[0]["id"].ToString();
+
+                //Inserir na tabela estoque
+                sql = $"INSERT into estoque(quantidade) " +
+                      $"VALUES ('{Quantidade}')";
+                objDAL.ExecutarComandoSQL(sql);
+
+                //Recuperar o ID do estoque
+                sql = $"SELECT id FROM estoque WHERE quantidade='{Quantidade}' " +
+                    $"ORDER BY id desc limit 1";
+                dt = objDAL.RetDataTable(sql);
+                string id_estoque = dt.Rows[0]["id"].ToString();
+
+                //Inserir na tabela produto_estoque
+                sql = $"INSERT into produto_estoque(produto_id, estoque_id ) " +
+                      $"VALUES ('{id_produto}', '{id_estoque}')";
+                objDAL.ExecutarComandoSQL(sql);
             }
 
-            finally
-            {
-                objDAL.FecharConexao();
-            }
+            myTrans.Commit();
+
+            //}
+
+            //catch (Exception e)
+            //{
+            //    try
+            //    {
+            //        myTrans.Rollback();
+            //    }
+            //    catch (MySqlException ex)
+            //    {
+            //        if (myTrans.Connection != null)
+            //        {
+            //            Console.WriteLine("Uma exceção do tipo " + ex.GetType() + " foi encontrada enquanto era realizado roll back da transação.");
+            //        }
+            //    }
+
+            //    Console.WriteLine("Uma exceção do tipo " + e.GetType() + " foi encontrada enquanto os dados eram inseridos.");
+            //    Console.WriteLine("Nenhum registro foi salvo no banco de dadoa.");
+            //}
+
+            //finally
+            //{
+            //    objDAL.FecharConexao();
+            //}
 
         }
 
