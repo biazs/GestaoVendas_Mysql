@@ -40,11 +40,25 @@ namespace SistemaVendas.Controllers
                 catch (Exception e)
                 {
                     return RedirectToAction(nameof(Error), new { message = "Erro ao preencher produto. \n" + e.Message });
+                    //try
+                    //{
+                    //    myTrans.Rollback();
+                    //}
+                    //catch (MySqlException ex)
+                    //{
+                    //    if (myTrans.Connection != null)
+                    //    {
+                    //        Console.WriteLine("Uma exceção do tipo " + ex.GetType() + " foi encontrada enquanto era realizado roll back da transação.");
+                    //    }
+                    //}
+
+                    //Console.WriteLine("Uma exceção do tipo " + e.GetType() + " foi encontrada enquanto os dados eram inseridos.");
+                    //Console.WriteLine("Nenhum registro foi salvo no banco de dadoa.");
                 }
-
-
             }
-            return View();
+            CarregarDados();
+            return View(produto);
+
         }
 
         public IActionResult Excluir(int id)
@@ -55,8 +69,17 @@ namespace SistemaVendas.Controllers
 
         public IActionResult ExcluirProduto(int id)
         {
-            new ProdutoModel().Excluir(id);
+            try
+            {
+                new ProdutoModel().Excluir(id);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Erro ao excluir o produto: " + id + "." + "\n\n" + e.Message });
+            }
+
             return View();
+
         }
 
         public IActionResult VisualizarComoPDF()

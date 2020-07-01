@@ -2,24 +2,22 @@
 <h2>Cadastro de Produtos</h2>
 
 <form asp-controller="Produto" asp-action="Cadastro" method="post">
-    <input type="hidden" asp-for="Id" value="@try { @ViewBag.Produto.Id } catch { }" />
+    <input type="hidden" asp-for="Id" value="@if(Model!=null) { @Model.Id } " />
 
     <div class="form-group">
         <label>Nome</label>
-        <input asp-for="Nome" type="text" class="form-control" value="@try { @ViewBag.Produto.Nome } catch { }" />
+        @*<input asp-for="Nome" type="text" class="form-control" value="@try { @ViewBag.Produto.Nome } catch { }" />*@
+        <input type="text" class="form-control" asp-for="Nome" value="@if(Model!=null) { @Model.Nome} " />
+
         <span asp-validation-for="Nome" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label>Descrição</label>
         @{
             var vDescricao = "";
-            try
+            if (Model != null)
             {
-                vDescricao = @ViewBag.Produto.Descricao;
-            }
-            catch
-            {
-
+                vDescricao = @Model.Descricao;
             }
         }
         @Html.TextArea("Descricao", vDescricao, new { @class = "form-control" })
@@ -29,12 +27,12 @@
     </div>
     <div class="form-group">
         <label>Preço Unitário</label>
-        <input asp-for="Preco_Unitario" type="text" class="form-control" value="@try { @ViewBag.Produto.Preco_Unitario } catch { }" />
+        <input asp-for="Preco_Unitario" type="text" class="form-control" value="@if(Model!=null) { @Model.Preco_Unitario } " />
         <span asp-validation-for="Preco_Unitario" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label>Quantidade Estoque</label>
-        <input asp-for="Quantidade" type="text" class="form-control" value="@try { @ViewBag.Produto.Quantidade } catch { }" />
+        <input asp-for="Quantidade" type="text" class="form-control" value="@if(Model!=null) { @Model.Quantidade } " />
         <span asp-validation-for="Quantidade" class="text-danger"></span>
     </div>
     <div class="form-group">
@@ -42,11 +40,10 @@
         @*<input asp-for="Unidade_Medida" type="text" class="form-control" value="@try { @ViewBag.Produto.Unidade_Medida } catch { }" />*@
         @{
             var vUnidadeMedida = "";
-            try
+            if (Model != null)
             {
-                vUnidadeMedida = @ViewBag.Produto.Unidade_Medida;
+                vUnidadeMedida = @Model.Unidade_Medida;
             }
-            catch { }
         }
 
         <select asp-for="Unidade_Medida" class="form-control">
@@ -104,12 +101,11 @@
     </div>
     <div class="form-group">
         <label>Foto</label>
-        @try
+        @if (Model != null)
         {
-            <img src="@try { @ViewBag.Produto.Link_Foto } catch { }" width="150" height="150" />
+            <img src="@Model.Link_Foto" width="150" height="150" />
         }
-        catch { }
-        <input asp-for="Link_Foto" type="text" class="form-control" value="@try { @ViewBag.Produto.Link_Foto } catch { }" />
+        <input asp-for="Link_Foto" type="text" class="form-control" value="@if(Model!=null) { @Model.Link_Foto }" />
         <span asp-validation-for="Link_Foto" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-block btn-success">Registrar</button>

@@ -178,37 +178,22 @@ namespace SistemaVendas.Models
             }
 
             myTrans.Commit();
-
-            //}
-
-            //catch (Exception e)
-            //{
-            //    try
-            //    {
-            //        myTrans.Rollback();
-            //    }
-            //    catch (MySqlException ex)
-            //    {
-            //        if (myTrans.Connection != null)
-            //        {
-            //            Console.WriteLine("Uma exceção do tipo " + ex.GetType() + " foi encontrada enquanto era realizado roll back da transação.");
-            //        }
-            //    }
-
-            //    Console.WriteLine("Uma exceção do tipo " + e.GetType() + " foi encontrada enquanto os dados eram inseridos.");
-            //    Console.WriteLine("Nenhum registro foi salvo no banco de dadoa.");
-            //}
-
-            //finally
-            //{
-            //    objDAL.FecharConexao();
-            //}
+            objDAL.FecharConexao();
 
         }
 
         public void Excluir(int id)
         {
             DAL objDAL = new DAL();
+
+            MySqlCommand myCommand = objDAL.IniciarComando();
+            MySqlTransaction myTrans;
+
+            // Start a local transaction
+            myTrans = objDAL.IniciarTransacao();
+
+            // myCommand.Connection = myConnection;
+            myCommand.Transaction = myTrans;
 
             //Armazenar o ID do estoque que será removido
             string sql = $"SELECT estoque_id FROM produto_estoque WHERE produto_id = '{id}'";
@@ -228,6 +213,7 @@ namespace SistemaVendas.Models
             sql = $"DELETE FROM produto WHERE id = '{id_estoque}'";
             objDAL.ExecutarComandoSQL(sql);
 
+            myTrans.Commit();
             objDAL.FecharConexao();
         }
     }
