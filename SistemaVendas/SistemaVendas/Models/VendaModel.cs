@@ -88,47 +88,47 @@ namespace SistemaVendas.Models
 
             string dataVenda = DateTime.Now.Date.ToString("yyyy-MM-dd");
 
-            try
-            {
-                myCommand.Transaction = myTrans;
+            // try
+            // {
+            myCommand.Transaction = myTrans;
 
-                string sql = $"INSERT INTO venda (data, total, vendedor_id, cliente_id)" +
-                $"VALUES('{dataVenda}', {Total.ToString().Replace(",", ".")}, {Vendedor_Id}, {Cliente_Id})";
+            string sql = $"INSERT INTO venda (data, total, vendedor_id, cliente_id)" +
+            $"VALUES('{dataVenda}', {Total.ToString().Replace(",", ".")}, {Vendedor_Id}, {Cliente_Id})";
+            objDAL.ExecutarComandoSQL(sql);
+
+            //Recuperar o ID da venda
+            sql = $"select id from venda where data='{dataVenda}' and vendedor_id={Vendedor_Id} and cliente_id={Cliente_Id} order by id desc limit 1";
+            DataTable dt = objDAL.RetDataTable(sql);
+            string id_venda = dt.Rows[0]["id"].ToString();
+
+            //Serializar o JSON da lista de produtos selecionados e gravar na tabela itens_venda
+            List<ItemVendaModel> lista_produtos = JsonConvert.DeserializeObject<List<ItemVendaModel>>(ListaProdutos);
+            for (var i = 0; i < lista_produtos.Count; i++)
+            {
+                sql = "INSERT INTO itens_venda(venda_id, produto_id, qtde_produto, preco_produto) " +
+                    $"VALUES ({id_venda},{lista_produtos[i].CodigoProduto.ToString()}," +
+                    $"{lista_produtos[i].QtdeProduto.ToString()}," +
+                    $"{lista_produtos[i].PrecoUnitario.ToString().Replace(",", ".")})";
+
                 objDAL.ExecutarComandoSQL(sql);
 
-                //Recuperar o ID da venda
-                sql = $"select id from venda where data='{dataVenda}' and vendedor_id={Vendedor_Id} and cliente_id={Cliente_Id} order by id desc limit 1";
-                DataTable dt = objDAL.RetDataTable(sql);
-                string id_venda = dt.Rows[0]["id"].ToString();
 
-                //Serializar o JSON da lista de produtos selecionados e gravar na tabela itens_venda
-                List<ItemVendaModel> lista_produtos = JsonConvert.DeserializeObject<List<ItemVendaModel>>(ListaProdutos);
-                for (var i = 0; i < lista_produtos.Count; i++)
-                {
-                    sql = "INSERT INTO itens_venda(venda_id, produto_id, qtde_produto, preco_produto) " +
-                        $"VALUES ({id_venda},{lista_produtos[i].CodigoProduto.ToString()}," +
-                        $"{lista_produtos[i].QtdeProduto.ToString()}," +
-                        $"{lista_produtos[i].PrecoUnitario.ToString().Replace(",", ".")})";
+                //Buscar o ID do estoque
+                sql = $"SELECT estoque_id FROM produto_estoque WHERE produto_id = '{lista_produtos[i].CodigoProduto.ToString()}'";
+                dt = objDAL.RetDataTable(sql);
+                string id_estoque = dt.Rows[0]["estoque_id"].ToString();
 
-                    objDAL.ExecutarComandoSQL(sql);
-
-
-                    //Buscar o ID do estoque
-                    sql = $"SELECT estoque_id FROM produto_estoque WHERE produto_id = '{lista_produtos[i].CodigoProduto.ToString()}'";
-                    dt = objDAL.RetDataTable(sql);
-                    string id_estoque = dt.Rows[0]["estoque_id"].ToString();
-
-                    //Baixar quantidade do estoque
-                    sql = "UPDATE estoque " +
-                        "SET quantidade = (quantidade - " + int.Parse(lista_produtos[i].QtdeProduto.ToString()) + ") " +
-                        $"WHERE id = {id_estoque}";
-                    objDAL.ExecutarComandoSQL(sql);
-                }
-
-                myTrans.Commit();
+                //Baixar quantidade do estoque
+                sql = "UPDATE estoque " +
+                    "SET quantidade = (quantidade - " + int.Parse(lista_produtos[i].QtdeProduto.ToString()) + ") " +
+                    $"WHERE id = {id_estoque}";
+                objDAL.ExecutarComandoSQL(sql);
             }
 
-            catch (Exception e)
+            myTrans.Commit();
+            //}
+
+            /*catch (Exception e)
             {
                 try
                 {
@@ -147,9 +147,9 @@ namespace SistemaVendas.Models
             }
 
             finally
-            {
-                objDAL.FecharConexao();
-            }
+            {*/
+            objDAL.FecharConexao();
+            //}
         }
     }
 }

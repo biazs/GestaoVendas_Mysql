@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Rotativa.AspNetCore;
+using SistemaVendas.Models;
 
 namespace SistemaVendas
 {
@@ -23,6 +24,8 @@ namespace SistemaVendas
             services.AddControllersWithViews();
             services.AddSession();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddScoped<VendedorModel>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

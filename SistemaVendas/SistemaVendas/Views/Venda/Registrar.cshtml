@@ -7,10 +7,34 @@
     <p class="alert alert-success">@TempData["MSG_S"]</p>
 }
 <form asp-controller="Venda" asp-action="Registrar" method="post">
+
+    <div class="form-group">
+        <label class="control-label font-weight-bold">Vendedor</label>
+        <div>
+            <span class="control-label" id="vendedor" name="vendedor">
+                @try
+                {
+                    @ViewBag.Vendedor.Nome
+                }
+                catch { }
+            </span>
+        </div>
+
+        @* <select asp-for="Vendedor_Id" class="form-control">
+                @{
+                    foreach (var item in (List<VendedorModel>)ViewBag.ListaVendedores)
+                    {
+                        <option value="@item.Id">@item.Nome</option>
+                    }
+                }
+
+            </select>*@
+    </div>
+
     @*<input type="hidden" asp-for="Id" value="@try { @ViewBag.Venda.Id } catch { }" />*@
 
     <div class="form-group">
-        <label>Cliente</label>
+        <label class="control-label font-weight-bold">Cliente</label>
         <select asp-for="Cliente_Id" class="form-control">
             @{
                 foreach (var item in (List<ClienteModel>)ViewBag.ListaClientes)
@@ -22,22 +46,9 @@
         </select>
     </div>
 
-    @*<div class="form-group">
-            <label>Vendedor</label>
-            <select asp-for="Vendedor_Id" class="form-control">
-                @{
-                    foreach (var item in (List<VendedorModel>)ViewBag.ListaVendedores)
-                    {
-                        <option value="@item.Id">@item.Nome</option>
-                    }
-                }
-
-            </select>
-        </div>*@
-
-    <label>Produtos</label><br />
-    <div class="form-group">
-        <div class="col-lg-7">
+    <label class="control-label font-weight-bold">Produtos</label><br />
+    <div class="row form-group">
+        <div class="col-lg-8">
             <select class="form-control" id="sltProduto">
                 @{
                     foreach (var item in (List<ProdutoModel>)ViewBag.ListaProdutos)
@@ -48,7 +59,7 @@
 
             </select>
         </div>
-        <div class="col-lg-1">
+        <div class="col-lg-2">
             <input type="text" class="form-control" value="1" id="txtQuantidade" />
         </div>
         <div class="col-lg-2">
