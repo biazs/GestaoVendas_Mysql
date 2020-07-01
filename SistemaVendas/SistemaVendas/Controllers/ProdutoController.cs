@@ -11,8 +11,15 @@ namespace SistemaVendas.Controllers
     {
         public IActionResult Index()
         {
-            CarregaLista();
-            return View();
+            try
+            {
+                CarregaLista();
+                return View();
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Erro ao carregar registros. Tente novamente mais tarde. \n\n" + e.Message });
+            }
         }
 
         [HttpGet]
@@ -49,7 +56,15 @@ namespace SistemaVendas.Controllers
 
         public IActionResult Excluir(int id)
         {
-            ViewData["idExcluir"] = id;
+            if (id == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Erro! Para remover um produto, é exigido o identificador do produto." });
+            }
+            else
+            {
+                ViewData["idExcluir"] = id;
+            }
+
             return View();
         }
 
