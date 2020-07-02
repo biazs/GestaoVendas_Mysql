@@ -152,7 +152,7 @@
             "<td>" + item.QtdeProduto + "</td>" +
             "<td> R$" + item.PrecoUnitario + "</td>" +
             "<td> R$" + item.Total + "</td>" +
-            "<td><button type='button' class='btn btn-danger' onclick='RemoverProdutoDaLista(" + click + ")'>Remover</button></td>" +
+            "<td><button type='button' class='btn btn-danger' onclick='RemoverProdutoDaLista(" + click + ", " + item.Total + ")'>Remover</button></td>" +
             "</tr>";
 
         ListaProdutos.innerHTML += produto;
@@ -163,9 +163,18 @@
         txtTotal.value = totalGeral.toString().replace(".", ",");
     }
 
-    function RemoverProdutoDaLista(codigo) {
+    function RemoverProdutoDaLista(codigo, total) {
         document.getElementById(codigo).remove();
+
         // TODO: remover item do JSON
+        // TODO: remover valor do totalVenda
+
+        //Exibe totalizador na tela
+        var totalGeral = Math.round((TotalVenda.innerText * 1 - total) * 100) / 100;
+        TotalVenda.innerHTML = totalGeral;
+        txtTotal.value = totalGeral.toString().replace(".", ",");
+
+
     }
 
 </script>
