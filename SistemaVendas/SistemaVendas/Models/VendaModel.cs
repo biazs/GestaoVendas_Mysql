@@ -35,7 +35,7 @@ namespace SistemaVendas.Models
             VendaModel item;
 
             string sql = "SELECT v1.id, v1.data, v1.total, v2.nome as vendedor, c.nome as cliente FROM " +
-                         "venda v1 inner join vendedor v2 on v1.vendedor_id = v2.id inner join cliente c " +
+                         "sistema_venda.venda v1 inner join sistema_venda.vendedor v2 on v1.vendedor_id = v2.id inner join sistema_venda.cliente c " +
                          "on v1.cliente_id = c.id " +
                          $"WHERE v1.data >= '{DataDe}' and v1.data <= '{DataAte}'" +
                          "ORDER BY data desc, id desc, total";
@@ -88,16 +88,14 @@ namespace SistemaVendas.Models
 
             string dataVenda = DateTime.Now.Date.ToString("yyyy-MM-dd");
 
-            // try
-            // {
             myCommand.Transaction = myTrans;
 
-            string sql = $"INSERT INTO venda (data, total, vendedor_id, cliente_id)" +
+            string sql = $"INSERT INTO sistema_venda.venda (data, total, vendedor_id, cliente_id)" +
             $"VALUES('{dataVenda}', {Total.ToString().Replace(",", ".")}, {Vendedor_Id}, {Cliente_Id})";
             objDAL.ExecutarComandoSQL(sql);
 
             //Recuperar o ID da venda
-            sql = $"select id from venda where data='{dataVenda}' and vendedor_id={Vendedor_Id} and cliente_id={Cliente_Id} order by id desc limit 1";
+            sql = $"select id from sistema_venda.venda where data='{dataVenda}' and vendedor_id={Vendedor_Id} and cliente_id={Cliente_Id} order by id desc limit 1";
             DataTable dt = objDAL.RetDataTable(sql);
             string id_venda = dt.Rows[0]["id"].ToString();
 
@@ -105,7 +103,7 @@ namespace SistemaVendas.Models
             List<ItemVendaModel> lista_produtos = JsonConvert.DeserializeObject<List<ItemVendaModel>>(ListaProdutos);
             for (var i = 0; i < lista_produtos.Count; i++)
             {
-                sql = "INSERT INTO itens_venda(venda_id, produto_id, qtde_produto, preco_produto) " +
+                sql = "INSERT INTO sistema_venda.itens_venda(venda_id, produto_id, qtde_produto, preco_produto) " +
                     $"VALUES ({id_venda},{lista_produtos[i].CodigoProduto.ToString()}," +
                     $"{lista_produtos[i].QtdeProduto.ToString()}," +
                     $"{lista_produtos[i].PrecoUnitario.ToString().Replace(",", ".")})";
@@ -114,42 +112,21 @@ namespace SistemaVendas.Models
 
 
                 //Buscar o ID do estoque
-                sql = $"SELECT estoque_id FROM produto_estoque WHERE produto_id = '{lista_produtos[i].CodigoProduto.ToString()}'";
+                sql = $"SELECT estoque_id FROM sistema_venda.produto_estoque WHERE produto_id = '{lista_produtos[i].CodigoProduto.ToString()}'";
                 dt = objDAL.RetDataTable(sql);
                 string id_estoque = dt.Rows[0]["estoque_id"].ToString();
 
                 //Baixar quantidade do estoque
-                sql = "UPDATE estoque " +
+                sql = "UPDATE sistema_venda.estoque " +
                     "SET quantidade = (quantidade - " + int.Parse(lista_produtos[i].QtdeProduto.ToString()) + ") " +
                     $"WHERE id = {id_estoque}";
                 objDAL.ExecutarComandoSQL(sql);
             }
 
             myTrans.Commit();
-            //}
 
-            /*catch (Exception e)
-            {
-                try
-                {
-                    myTrans.Rollback();
-                }
-                catch (MySqlException ex)
-                {
-                    if (myTrans.Connection != null)
-                    {
-                        Console.WriteLine("Uma exceção do tipo " + ex.GetType() + " foi encontrada enquanto era realizado roll back da transação.");
-                    }
-                }
-
-                Console.WriteLine("Uma exceção do tipo " + e.GetType() + " foi encontrada enquanto os dados eram inseridos.");
-                Console.WriteLine("Nenhum registro foi salvo no banco de dadoa.");
-            }
-
-            finally
-            {*/
             objDAL.FecharConexao();
-            //}
+
         }
     }
 }

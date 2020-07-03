@@ -31,8 +31,6 @@
             </select>*@
     </div>
 
-    @*<input type="hidden" asp-for="Id" value="@try { @ViewBag.Venda.Id } catch { }" />*@
-
     <div class="form-group">
         <label class="control-label font-weight-bold">Cliente</label>
         <select asp-for="Cliente_Id" class="form-control">
@@ -89,7 +87,6 @@
     <input type="hidden" asp-for="Total" id="txtTotal" />
     <textarea style="display:none;" asp-for="ListaProdutos" id="ListaProdutosJSON"></textarea>
 
-    @*<button type="button" class="btn btn-block btn-success" onclick="Registrar()">JSON</button>*@
     <button type="submit" class="btn btn-block btn-success">Registrar</button>
     <button type="button" class="btn btn-block btn-primary" onclick="Voltar()">Listagem de Vendas</button>
 </form>
