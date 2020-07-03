@@ -3,8 +3,14 @@
 
 ### DotnetCore ###
 # .NET Core build folders
-bin/
-obj/
+[Bb]in/
+[Oo]bj/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
 # Common node modules locations
 /node_modules

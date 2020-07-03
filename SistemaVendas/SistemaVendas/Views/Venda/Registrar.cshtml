@@ -68,7 +68,7 @@
     </div>
     <br />
 
-    <table class="table table-bordered">
+    <table class="table table-bordered js-tabela">
         <thead>
             <tr>
                 <td>Id</td>
@@ -89,6 +89,7 @@
     <input type="hidden" asp-for="Total" id="txtTotal" />
     <textarea style="display:none;" asp-for="ListaProdutos" id="ListaProdutosJSON"></textarea>
 
+    @*<button type="button" class="btn btn-block btn-success" onclick="Registrar()">JSON</button>*@
     <button type="submit" class="btn btn-block btn-success">Registrar</button>
     <button type="button" class="btn btn-block btn-primary" onclick="Voltar()">Listagem de Vendas</button>
 </form>
@@ -97,7 +98,7 @@
     var Itens = new Object();
     Itens.Produtos = new Array();
 
-    var click = 0;
+    var idLinha = 0;
 
     var CodigoProduto = document.getElementById("sltProduto");
     var QtdeProduto = document.getElementById("txtQuantidade");
@@ -111,14 +112,6 @@
         window.location.href = '../../Venda/Index';
     }
 
-    function Item(CodigoProduto, Descricao, QtdeProduto, PrecoUnitario, Total) {
-        this.CodigoProduto = CodigoProduto;
-        this.Descricao = Descricao;
-        this.QtdeProduto = QtdeProduto;
-        this.PrecoUnitario = PrecoUnitario;
-        this.Total = Total;
-    }
-
     function AdicionarProduto() {
 
         var DescricaoPreco = CodigoProduto.options[CodigoProduto.selectedIndex].text;
@@ -126,54 +119,76 @@
         var total = (arrayDescricaoPreco[1].replace(",", ".") * QtdeProduto.value);
         total = Math.round(total * 100) / 100;
 
-        var item = new Item(CodigoProduto.value, arrayDescricaoPreco[0], QtdeProduto.value, arrayDescricaoPreco[1], total);
-
-        console.log(item);
-
-
-        // Preencher JSON - TODO: Refazer
-        Itens.Produtos.push({
-            "CodigoProduto": CodigoProduto.value,
-            "Descricao": arrayDescricaoPreco[0],
-            "QtdeProduto": QtdeProduto.value,
-            "PrecoUnitario": arrayDescricaoPreco[1],
-            "Total": total
-        });
-        ListaProdutosJSON.innerHTML = JSON.stringify(Itens.Produtos);
-
 
         // id da linha
-        click++;
+        idLinha++;
 
         //Exibe itens na tela
-        var produto = "<tr id=" + click + ">" +
-            "<td>" + item.CodigoProduto + "</td>" +
-            "<td>" + item.Descricao + "</td>" +
-            "<td>" + item.QtdeProduto + "</td>" +
-            "<td> R$" + item.PrecoUnitario + "</td>" +
-            "<td> R$" + item.Total + "</td>" +
-            "<td><button type='button' class='btn btn-danger' onclick='RemoverProdutoDaLista(" + click + ", " + item.Total + ")'>Remover</button></td>" +
+        var produto = "<tr class='produto_inserido' id=" + idLinha + ">" +
+            "<td>" + CodigoProduto.value + "</td>" +
+            "<td>" + arrayDescricaoPreco[0] + "</td>" +
+            "<td>" + QtdeProduto.value + "</td>" +
+            "<td>R$" + arrayDescricaoPreco[1] + "</td>" +
+            "<td>R$" + total + "</td>" +
+            "<td><button type='button' class='btn btn-danger' onclick='RemoverProdutoDaLista(" + idLinha + ", " + total + ")'>Remover</button></td>" +
             "</tr>";
 
         ListaProdutos.innerHTML += produto;
+
+
+        GerarJSON();
 
         //Exibe totalizador na tela
         var totalGeral = Math.round((TotalVenda.innerText * 1 + total) * 100) / 100;
         TotalVenda.innerHTML = totalGeral;
         txtTotal.value = totalGeral.toString().replace(".", ",");
+
     }
 
     function RemoverProdutoDaLista(codigo, total) {
         document.getElementById(codigo).remove();
-
-        // TODO: remover item do JSON
-        // TODO: remover valor do totalVenda
 
         //Exibe totalizador na tela
         var totalGeral = Math.round((TotalVenda.innerText * 1 - total) * 100) / 100;
         TotalVenda.innerHTML = totalGeral;
         txtTotal.value = totalGeral.toString().replace(".", ",");
 
+        GerarJSON();
+
+    }
+
+    function GerarJSON() {
+
+        ListaProdutosJSON.innerHTML = "";
+
+        //Ler TRs
+        var trs = document.querySelectorAll('.js-tabela tbody .produto_inserido');
+        var x = 0;
+
+        while (trs[x]) {
+
+            var conteudo = trs[x].innerHTML;
+
+            var conteudoDividido = conteudo.split('</td>');
+            var CodigoProdutoJSON = conteudoDividido[0].replace("<td>", "");
+            var DescProdutoJSON = conteudoDividido[1].replace("<td>", "");
+            var QtdeProdutoJSON = conteudoDividido[2].replace("<td>", "");
+            var PrecoUnitarioJSON = conteudoDividido[3].replace("<td>", "").replace(",", ".").replace("R$ ", "");
+            var totalJSON = conteudoDividido[4].replace("<td>", "").replace("R$", "");
+
+            // Preencher JSON
+            Itens.Produtos.push({
+                "CodigoProduto": CodigoProdutoJSON,
+                "Descricao": DescProdutoJSON,
+                "QtdeProduto": QtdeProdutoJSON,
+                "PrecoUnitario": PrecoUnitarioJSON,
+                "Total": totalJSON
+            });
+
+            x++;
+        }
+
+        ListaProdutosJSON.innerHTML = JSON.stringify(Itens.Produtos);
 
     }
 

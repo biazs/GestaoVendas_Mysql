@@ -38,7 +38,7 @@ namespace SistemaVendas.Models
                          "venda v1 inner join vendedor v2 on v1.vendedor_id = v2.id inner join cliente c " +
                          "on v1.cliente_id = c.id " +
                          $"WHERE v1.data >= '{DataDe}' and v1.data <= '{DataAte}'" +
-                         "ORDER BY data desc, total";
+                         "ORDER BY data desc, id desc, total";
 
             DAL objDAL = new DAL();
             DataTable dt = objDAL.RetDataTable(sql);

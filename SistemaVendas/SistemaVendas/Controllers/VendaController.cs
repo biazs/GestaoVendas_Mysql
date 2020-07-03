@@ -46,20 +46,20 @@ namespace SistemaVendas.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    //captura o id do usuário logado no sistema
-                    venda.Vendedor_Id = _httpContextAccessor.HttpContext.Session.GetString("IdUsuarioLogado");
-                    ViewBag.Vendedor = _vendedor.RetornarVendedor(Convert.ToInt32(venda.Vendedor_Id));
-                    venda.Inserir();
-                    TempData["MSG_S"] = Mensagem.MSG_S001;
-                }
+                //  try
+                //  {
+                //captura o id do usuário logado no sistema
+                venda.Vendedor_Id = _httpContextAccessor.HttpContext.Session.GetString("IdUsuarioLogado");
+                ViewBag.Vendedor = _vendedor.RetornarVendedor(Convert.ToInt32(venda.Vendedor_Id));
+                venda.Inserir();
+                TempData["MSG_S"] = Mensagem.MSG_S001;
+                // }
 
 
-                catch (Exception e)
-                {
-                    return RedirectToAction(nameof(Error), new { message = "Erro ao registrar venda. \n" + e.Message });
-                }
+                //catch (Exception e)
+                //{
+                //    return RedirectToAction(nameof(Error), new { message = "Erro ao registrar venda. \n" + e.Message });
+                //}
             }
 
             CarregarDados();
