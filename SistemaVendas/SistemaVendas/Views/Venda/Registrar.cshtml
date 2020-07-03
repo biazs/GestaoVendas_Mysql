@@ -109,6 +109,14 @@
         window.location.href = '../../Venda/Index';
     }
 
+    function Item(CodigoProduto, Descricao, QtdeProduto, PrecoUnitario, Total) {
+        this.CodigoProduto = CodigoProduto;
+        this.Descricao = Descricao;
+        this.QtdeProduto = QtdeProduto;
+        this.PrecoUnitario = PrecoUnitario;
+        this.Total = Total;
+    }
+
     function AdicionarProduto() {
 
         var DescricaoPreco = CodigoProduto.options[CodigoProduto.selectedIndex].text;
@@ -116,6 +124,9 @@
         var total = (arrayDescricaoPreco[1].replace(",", ".") * QtdeProduto.value);
         total = Math.round(total * 100) / 100;
 
+        var item = new Item(CodigoProduto.value, arrayDescricaoPreco[0], QtdeProduto.value, arrayDescricaoPreco[1], total);
+
+        var Produtos = new Array();
 
         // id da linha
         idLinha++;
@@ -158,8 +169,10 @@
 
         ListaProdutosJSON.innerHTML = "";
 
+
         //Ler TRs
         var trs = document.querySelectorAll('.js-tabela tbody .produto_inserido');
+
         var x = 0;
 
         while (trs[x]) {
@@ -172,6 +185,14 @@
             var QtdeProdutoJSON = conteudoDividido[2].replace("<td>", "");
             var PrecoUnitarioJSON = conteudoDividido[3].replace("<td>", "").replace(",", ".").replace("R$ ", "");
             var totalJSON = conteudoDividido[4].replace("<td>", "").replace("R$", "");
+
+            //TODO: Verifica se código de produto já foi inserido
+            if (Produtos.indexOf(CodigoProdutoJSON) === -1) {
+                Produtos.push(CodigoProdutoJSON);
+            }
+            else {
+                alert("Produto já foi inserido.")
+            }
 
             // Preencher JSON
             Itens.Produtos.push({

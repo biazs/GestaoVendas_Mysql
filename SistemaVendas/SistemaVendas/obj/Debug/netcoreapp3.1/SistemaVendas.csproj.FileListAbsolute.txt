@@ -85,9 +85,6 @@ D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVend
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\Rotativa.AspNetCore.dll
-D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.csproj.CoreCompileInputs.cache
-D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.MvcApplicationPartsAssemblyInfo.cs
-D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.MvcApplicationPartsAssemblyInfo.cache
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Cliente\VisualizarComoPDF.cshtml.g.cs
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Vendedor\VisualizarComoPDF.cshtml.g.cs
 D:\Fabiana\Desenvolvimento_Full_Stack\TCC\GestaoVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\Razor\Views\Fornecedor\VisualizarComoPDF.cshtml.g.cs
